@@ -52,7 +52,7 @@ class TestResolver {
 }
 
 @Public()
-@Controller()
+@Controller('/api')
 class TestController {
   @Get('/ok')
   ok() {
@@ -145,15 +145,16 @@ test('should be able to handle unknown internal error in graphql query', async t
 
 test('should be able to respond request', async t => {
   const res = await request(t.context.app.getHttpServer())
-    .get('/ok')
+    .get('/api/ok')
     .expect(200);
   t.is(res.text, 'ok');
 });
 
 test('should be able to handle known user error in http request', async t => {
   const res = await request(t.context.app.getHttpServer())
-    .get('/throw-known-error')
+    .get('/api/throw-known-error')
     .expect(HttpStatus.FORBIDDEN);
+
   t.is(res.body.message, 'You do not have permission to access this resource.');
   t.is(res.body.name, 'ACCESS_DENIED');
   t.true(t.context.logger.error.notCalled);
@@ -161,7 +162,7 @@ test('should be able to handle known user error in http request', async t => {
 
 test('should be able to handle unknown internal error in http request', async t => {
   const res = await request(t.context.app.getHttpServer())
-    .get('/throw-unknown-error')
+    .get('/api/throw-unknown-error')
     .expect(HttpStatus.INTERNAL_SERVER_ERROR);
   t.is(res.body.message, 'An internal error occurred.');
   t.is(res.body.name, 'INTERNAL_SERVER_ERROR');

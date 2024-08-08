@@ -204,7 +204,7 @@ export class PermissionService {
     const count = await this.prisma.workspace.count({
       where: {
         id: ws,
-        public: true,
+        enableUrlPreview: true,
       },
     });
 
