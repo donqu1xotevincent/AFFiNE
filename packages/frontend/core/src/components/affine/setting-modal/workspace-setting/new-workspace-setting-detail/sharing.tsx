@@ -4,7 +4,7 @@ import {
   SettingWrapper,
 } from '@affine/component/setting-components';
 import { useAsyncCallback } from '@affine/core/hooks/affine-async-hooks';
-import { WorkspaceSharePreviewService } from '@affine/core/modules/share-preview';
+import { WorkspaceShareSettingService } from '@affine/core/modules/share-setting';
 import { WorkspaceFlavour } from '@affine/env/workspace';
 import { useI18n } from '@affine/i18n';
 import { useLiveData, useService, WorkspaceService } from '@toeverything/infra';
@@ -19,15 +19,15 @@ export const SharingPanel = () => {
 
 export const Sharing = () => {
   const t = useI18n();
-  const sharePreview = useService(WorkspaceSharePreviewService).sharePreview;
-  const enableUrlPreview = useLiveData(sharePreview.enableUrlPreview$);
-  const loading = useLiveData(sharePreview.isLoading$);
+  const shareSetting = useService(WorkspaceShareSettingService).sharePreview;
+  const enableUrlPreview = useLiveData(shareSetting.enableUrlPreview$);
+  const loading = useLiveData(shareSetting.isLoading$);
 
   const handleCheck = useAsyncCallback(
     async (checked: boolean) => {
-      await sharePreview.setEnableUrlPreview(checked);
+      await shareSetting.setEnableUrlPreview(checked);
     },
-    [sharePreview]
+    [shareSetting]
   );
 
   return (

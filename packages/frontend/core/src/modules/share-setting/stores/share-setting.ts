@@ -5,7 +5,7 @@ import {
 } from '@affine/graphql';
 import { Store } from '@toeverything/infra';
 
-export class WorkspaceSharePreviewStore extends Store {
+export class WorkspaceShareSettingStore extends Store {
   constructor(private readonly graphqlService: GraphQLService) {
     super();
   }

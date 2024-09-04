@@ -15,21 +15,21 @@ import {
 import { exhaustMap } from 'rxjs';
 
 import { isBackendError, isNetworkError } from '../../cloud';
-import type { WorkspaceSharePreviewStore } from '../stores/share-preview';
+import type { WorkspaceShareSettingStore } from '../stores/share-setting';
 
 type EnableUrlPreview =
   GetEnableUrlPreviewQuery['workspace']['enableUrlPreview'];
 
 const logger = new DebugLogger('affine:workspace-permission');
 
-export class WorkspaceSharePreview extends Entity {
+export class WorkspaceShareSetting extends Entity {
   enableUrlPreview$ = new LiveData<EnableUrlPreview | null>(null);
   isLoading$ = new LiveData(false);
   error$ = new LiveData<any>(null);
 
   constructor(
     private readonly workspaceService: WorkspaceService,
-    private readonly store: WorkspaceSharePreviewStore
+    private readonly store: WorkspaceShareSettingStore
   ) {
     super();
     this.revalidate();
