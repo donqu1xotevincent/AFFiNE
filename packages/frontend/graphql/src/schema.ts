@@ -1073,6 +1073,8 @@ export interface UpdateUserInput {
 }
 
 export interface UpdateWorkspaceInput {
+  /** Enable url previous when sharing */
+  enableUrlPreview: InputMaybe<Scalars['Boolean']['input']>;
   id: Scalars['ID']['input'];
   /** is Public workspace */
   public: InputMaybe<Scalars['Boolean']['input']>;
@@ -1216,6 +1218,8 @@ export interface WorkspaceType {
   blobsSize: Scalars['Int']['output'];
   /** Workspace created date */
   createdAt: Scalars['DateTime']['output'];
+  /** Enable url previous when sharing */
+  enableUrlPreview: Scalars['Boolean']['output'];
   /** Enabled features of workspace */
   features: Array<FeatureType>;
   histories: Array<DocHistoryType>;
@@ -2319,6 +2323,25 @@ export type VerifyEmailMutation = {
   verifyEmail: boolean;
 };
 
+export type GetEnableUrlPreviewQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+export type GetEnableUrlPreviewQuery = {
+  __typename?: 'Query';
+  workspace: { __typename?: 'WorkspaceType'; enableUrlPreview: boolean };
+};
+
+export type SetEnableUrlPreviewMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  enableUrlPreview: Scalars['Boolean']['input'];
+}>;
+
+export type SetEnableUrlPreviewMutation = {
+  __typename?: 'Mutation';
+  updateWorkspace: { __typename?: 'WorkspaceType'; id: string };
+};
+
 export type EnabledFeaturesQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
@@ -2613,6 +2636,11 @@ export type Queries =
       response: SubscriptionQuery;
     }
   | {
+      name: 'getEnableUrlPreviewQuery';
+      variables: GetEnableUrlPreviewQueryVariables;
+      response: GetEnableUrlPreviewQuery;
+    }
+  | {
       name: 'enabledFeaturesQuery';
       variables: EnabledFeaturesQueryVariables;
       response: EnabledFeaturesQuery;
@@ -2823,6 +2851,11 @@ export type Mutations =
       name: 'verifyEmailMutation';
       variables: VerifyEmailMutationVariables;
       response: VerifyEmailMutation;
+    }
+  | {
+      name: 'setEnableUrlPreviewMutation';
+      variables: SetEnableUrlPreviewMutationVariables;
+      response: SetEnableUrlPreviewMutation;
     }
   | {
       name: 'setWorkspaceExperimentalFeatureMutation';
