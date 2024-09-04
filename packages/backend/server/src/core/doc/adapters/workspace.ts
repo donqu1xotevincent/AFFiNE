@@ -6,6 +6,7 @@ import {
   Cache,
   DocHistoryNotFound,
   DocNotFound,
+  EventEmitter,
   FailedToSaveUpdates,
   FailedToUpsertSnapshot,
   metrics,
@@ -30,7 +31,8 @@ export class PgWorkspaceDocStorageAdapter extends DocStorageAdapter {
     private readonly db: PrismaClient,
     private readonly mutex: Mutex,
     private readonly cache: Cache,
-    protected override readonly options: DocStorageOptions
+    protected override readonly options: DocStorageOptions,
+    private readonly event: EventEmitter,
   ) {
     super(options);
   }
@@ -89,6 +91,7 @@ export class PgWorkspaceDocStorageAdapter extends DocStorageAdapter {
           });
           turn++;
           done += batch.length;
+          this.event.emit('snapshot.updatesPushed', { id: docId, workspaceId });
           await this.updateCachedUpdatesCount(workspaceId, docId, batch.length);
         }
       });

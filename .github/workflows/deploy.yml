@@ -100,6 +100,12 @@ jobs:
           name: web
           path: ./packages/frontend/web/dist
           if-no-files-found: error
+      - name: Upload web manifest artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-assets-manifest.json
+          path: ./packages/frontend/web/dist/web-assets-manifest.json
+          if-no-files-found: error
 
   build-admin:
     name: Build @affine/admin
@@ -163,6 +169,12 @@ jobs:
         with:
           name: mobile
           path: ./packages/frontend/mobile/dist
+          if-no-files-found: error
+      - name: Upload mobile manifest artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-assets-manifest.json
+          path: ./packages/frontend/mobile/dist/mobile-assets-manifest.json
           if-no-files-found: error
 
   build-frontend-image:
@@ -233,6 +245,16 @@ jobs:
       - name: Setup Version
         id: version
         uses: ./.github/actions/setup-version
+      - name: Download web manifest artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-assets-manifest.json
+          path: .github/helm/affine
+      - name: Download mobile manifest artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mobile-assets-manifest.json
+          path: .github/helm/affine
       - name: Deploy to ${{ github.event.inputs.flavor }}
         uses: ./.github/actions/deploy
         with:

@@ -22,7 +22,6 @@ export class SetupMiddleware implements NestMiddleware {
 
   use = (req: Request, res: Response, next: (error?: Error | any) => void) => {
     // never throw
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.server
       .initialized()
       .then(initialized => {

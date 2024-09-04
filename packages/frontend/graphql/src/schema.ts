@@ -1073,6 +1073,8 @@ export interface UpdateUserInput {
 }
 
 export interface UpdateWorkspaceInput {
+  /** Enable url previous when sharing */
+  enableUrlPreview: InputMaybe<Scalars['Boolean']['input']>;
   id: Scalars['ID']['input'];
   /** is Public workspace */
   public: InputMaybe<Scalars['Boolean']['input']>;
@@ -1216,6 +1218,8 @@ export interface WorkspaceType {
   blobsSize: Scalars['Int']['output'];
   /** Workspace created date */
   createdAt: Scalars['DateTime']['output'];
+  /** Enable url previous when sharing */
+  enableUrlPreview: Scalars['Boolean']['output'];
   /** Enabled features of workspace */
   features: Array<FeatureType>;
   histories: Array<DocHistoryType>;

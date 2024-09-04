@@ -15,7 +15,7 @@ module.exports.getCwdFromDistribution = function getCwdFromDistribution(
   distribution
 ) {
   switch (distribution) {
-    case 'browser':
+    case 'web':
     case undefined:
     case null:
       return join(projectRoot, 'packages/frontend/web');
