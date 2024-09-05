@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useCallback, useContext } from 'react';
 
 import type { MenuItemProps } from '../menu.types';
@@ -12,7 +13,7 @@ const preventDefault = () => {
 export const MobileMenuItem = (props: MenuItemProps) => {
   const { setOpen } = useContext(MobileMenuContext);
   const { className, children, otherProps } = useMenuItem(props);
-  const { onSelect, onClick, ...restProps } = otherProps;
+  const { onSelect, onClick, divide, ...restProps } = otherProps;
 
   const onItemClick = useCallback(
     (e: any) => {
@@ -31,7 +32,7 @@ export const MobileMenuItem = (props: MenuItemProps) => {
     <div
       role="menuitem"
       onClick={onItemClick}
-      className={className}
+      className={clsx(className, { divide })}
       {...restProps}
     >
       {children}

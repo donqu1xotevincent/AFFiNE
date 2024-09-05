@@ -43,6 +43,7 @@ export const menuContent = style({
 export const mobileMenuItem = style({
   padding: '10px 20px',
   borderRadius: 0,
+
   ':hover': {
     vars: {
       [bgColor]: 'transparent',
@@ -65,6 +66,25 @@ export const mobileMenuItem = style({
     },
     '&.warning:active': {
       vars: { [bgColor]: cssVar('backgroundWarningColor') },
+    },
+    // divider hack
+    '&.divide': {
+      marginBottom: 16,
+      position: 'relative',
+    },
+    '&.divide::after': {
+      content: '""',
+      position: 'absolute',
+      bottom: -8,
+      left: 0,
+      width: '100%',
+      borderBottom: `0.5px solid ${cssVarV2('layer/insideBorder/border')}`,
+    },
+    '&.divide:last-child': {
+      marginBottom: 0,
+    },
+    '&.divide:last-child::after': {
+      display: 'none',
     },
   },
 });
