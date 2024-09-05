@@ -107,6 +107,7 @@ export const WorkspaceSelector = ({
           className={className}
           showArrowDownIcon={showArrowDownIcon}
           disable={disable}
+          disableCollaborationStatus={true}
           data-testid="current-workspace-card"
         />
       ) : (

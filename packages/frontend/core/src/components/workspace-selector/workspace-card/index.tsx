@@ -241,6 +241,7 @@ export const WorkspaceCard = forwardRef<
     showArrowDownIcon?: boolean;
     avatarSize?: number;
     disable?: boolean;
+    disableCollaborationStatus?: boolean;
     onClickOpenSettings?: (workspaceMetadata: WorkspaceMetadata) => void;
     onClickEnableCloud?: (workspaceMetadata: WorkspaceMetadata) => void;
   }
@@ -255,6 +256,7 @@ export const WorkspaceCard = forwardRef<
       onClickEnableCloud,
       className,
       disable,
+      disableCollaborationStatus,
       ...props
     },
     ref
@@ -314,7 +316,9 @@ export const WorkspaceCard = forwardRef<
             Enable Cloud
           </Button>
         ) : null}
-        {information?.isOwner ? null : <CollaborationIcon />}
+        {disableCollaborationStatus || information?.isOwner ? null : (
+          <CollaborationIcon />
+        )}
         {onClickOpenSettings && (
           <div
             className={styles.settingButton}
